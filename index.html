@@ -1,0 +1,1224 @@
+<!doctype html>
+<!-- ══════════════════════════════════════════════════════════════════════
+  MAMAPUTONLINE — Landing Page  ·  ENSG AI Class, Assignment 1
+  Vibe-ENGINEERED (not vibe-coded) by Cynthia Abah full-stack Engineer, Enugu, Nigeria.
+
+  STACK ......... Semantic HTML5 + hand-rolled CSS custom-property design
+                  system + a small slice of vanilla JS. I deliberately chose
+                  hand-written CSS over the Tailwind CDN so this single file
+                  works OFFLINE in class — engineering around the constraint.
+
+  DESIGN PLAN (Prompt P0 output — full log in PROMPTS.md)
+    Palette ..... Palm-Oil Red #8C1E2B · Egusi Gold #F2A93B · Ugu Green
+                  #2F6D3D · Midnight Ogene (navy) #12203F · Pounded-Yam
+                  White #FFF8EE · Palm-Kernel Ink #2A1710
+    Type ........ "Alfa Slab One" display (hand-painted buka-sign energy,
+                  used with restraint) + "Epilogue" for body/UI.
+    Signature ... An animated, steam-rising clay pot of egusi drawn in SVG,
+                  sitting on an adire-dot medallion — plus gold ankara
+                  ric-rac trims under the sticky header & above the footer.
+    Voice ....... Warm Naija-diner copy (light pidgin in marketing lines
+                  only), engineer-precise everywhere else.
+
+  IMAGES — READ THIS, FUTURE ME 
+    This build environment cannot reach image sites, so every product tile
+    ships with a designed gradient + emoji fallback that already looks
+    finished. To upgrade to real photos: create  assets/img/  beside this
+    file and drop in the exact filenames listed in PROMPTS.md · Appendix A
+    (egusi.jpg, jollof.jpg, hero-egusi.jpg …). Each <img> carries an onload
+    hook, so photos take over AUTOMATICALLY — no code edits needed.
+
+  COMMENT STYLE: lines tagged [note] are my engineering rationale.
+═══════════════════════════════════════════════════════════════════════ -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      MamaPutOnline — Hot Naija Soups, Rice &amp; Grills, Delivered Sharp-Sharp
+    </title>
+    <meta
+      name="description"
+      content="Order egusi, ogbono, jollof, nkwobi and more from MamaPutOnline. Fresh pots daily, 45-minute dispatch across Lagos and Enugu."
+    />
+    <!-- [note] Emoji favicon via data-URI: zero extra files for the class demo. -->
+    <link
+      rel="icon"
+      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🍲</text></svg>'
+    />
+    <!-- [note] Web fonts degrade gracefully to Georgia/system stacks when offline. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&amp;family=Epilogue:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/dc90519a09.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ════════════════════════════════════════════════════════════════════
+  SECTION 1 · STICKY MENU BAR  (logo top-left · dark-red bar · Products /
+  Services / Customer Service / Contact Us · search at the very top-right)
+  ──────────────────────────────────────────────────────────────────────
+  PROMPT USED (PROMPTS.md P1)
+═════════════════════════════════════════════════════════════════════ -->
+    <div class="announce">
+      <i class="fa-solid fa-motorcycle"></i> Free delivery on orders above
+      ₦20,000 — Enugu &nbsp;·&nbsp; Fresh pots land 7:00 AM daily
+    </div>
+
+    <header class="site-head">
+      <!-- Logo: gold medallion + steaming pot glyph. Hand-drawn SVG = crisp at any size, zero image files. -->
+      <a class="brand" href="#top" aria-label="MamaPutOnline home">
+        <svg width="42" height="42" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" fill="#F2A93B" />
+          <path d="M11 27h26c0 7-5.5 11-13 11S11 34 11 27z" fill="#4A0C15" />
+          <rect x="9" y="25" width="30" height="4" rx="2" fill="#2A1710" />
+          <path
+            d="M18 20c-2-3 2-4 0-7M24 21c-2-3 2-4 0-7M30 20c-2-3 2-4 0-7"
+            fill="none"
+            stroke="#4A0C15"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span>
+          <span class="brand__name">MamaPut<span class="g">Online</span></span>
+          <span class="brand__tag">Naija Kitchen · Est. 2026</span>
+        </span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <!-- Menu bar sub-titles, exactly as the brief lists them. -->
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#menu">Products</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#support">Customer Service</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </nav>
+
+      <!-- Basket with live count (fed by JS in Section 8). -->
+      <button class="cart" type="button" aria-label="View basket, 0 items">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span class="cart__count is-hidden" aria-hidden="true">0</span>
+      </button>
+
+      <!-- Search window — very top-right corner. Filters the product grid live. -->
+      <form class="search" role="search" aria-label="Search dishes">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#FFEFE0"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.8-3.8" />
+        </svg>
+        <input
+          id="search"
+          type="search"
+          placeholder="Search egusi, jollof…"
+          autocomplete="off"
+        />
+      </form>
+    </header>
+    <div class="nav-backdrop"></div>
+
+    <nav class="mobile-drawer">
+      <ul>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#offers">Offers</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+  SECTION 2 · HERO  (≥30% viewport height ✔ we ship 62vh · 100% breadth ✔
+  · split into two vertical halves ✔ text-invite ⇆ steaming-dish visual)
+  ──────────────────────────────────────────────────────────────────────
+  PROMPT USED (in PROMPTS.md P2)
+═════════════════════════════════════════════════════════════════════ -->
+    <section class="hero" id="top">
+      <div class="hero__copy">
+        <span class="eyebrow">Mama don cook · Enugu</span>
+        <h1>
+          Steaming Naija soups, <span class="hl">sharp-sharp</span> delivery.
+        </h1>
+        <p class="hero__sub">
+          Egusi, ogbono, jollof, nkwobi and friends — cooked fresh every morning
+          in Mama's own pots. Today's pot dey finish quick o…
+          <strong>no miss your own!</strong>
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#menu">Order now — chop well </a>
+          <a class="btn btn--ghost" href="#menu" data-goto-deals
+            >See today's deals</a
+          >
+        </div>
+        <p class="hero__trust">
+          <b>★ 4.9</b> from 2,300+ orders
+          <span aria-hidden="true">·</span> 45-min dispatch
+          <span aria-hidden="true">·</span> Pay on delivery
+          <!-- [note] Sample social proof for the class demo — swap in REAL numbers
+          before launch. We no dey lie to customers. -->
+        </p>
+      </div>
+
+      <div class="hero__art">
+        <figure>
+          <!-- Real photo slot (auto-activates on load; see PROMPTS.md Appendix A). -->
+          <img
+            class="hero__photo"
+            src="/img/hero-egusi.webp"
+            alt="Steaming clay pot of egusi soup garnished with ugu leaves and assorted meat"
+            onload="this.parentElement.classList.add('has-photo')"
+          />
+
+          <!-- Default visual: the signature hand-drawn pot, steam animated in CSS. -->
+          <svg
+            class="pot-scene"
+            viewBox="0 0 520 430"
+            role="img"
+            aria-label="Illustration of a steaming clay pot of egusi soup"
+          >
+            <defs>
+              <linearGradient id="soup" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F0873C" />
+                <stop offset="1" stop-color="#C24E14" />
+              </linearGradient>
+              <linearGradient id="clay" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#6B3A22" />
+                <stop offset="1" stop-color="#3B1E10" />
+              </linearGradient>
+            </defs>
+            <!-- adire-dot medallion backdrop -->
+            <circle cx="260" cy="220" r="196" fill="#FBE7C4" />
+            <circle
+              cx="260"
+              cy="220"
+              r="196"
+              fill="none"
+              stroke="#F2A93B"
+              stroke-width="3"
+              stroke-dasharray="2 12"
+              stroke-linecap="round"
+            />
+            <!-- rising steam (animated) -->
+            <g
+              class="steam"
+              fill="none"
+              stroke="#FFFFFF"
+              stroke-width="9"
+              stroke-linecap="round"
+            >
+              <path d="M215 158c-12-16 12-26 0-44c-10-15 8-24 3-38" />
+              <path d="M262 150c-12-16 12-26 0-44c-10-15 8-24 3-38" />
+              <path d="M308 158c-12-16 12-26 0-44c-10-15 8-24 3-38" />
+            </g>
+            <!-- pot -->
+            <ellipse
+              cx="260"
+              cy="368"
+              rx="150"
+              ry="16"
+              fill="rgba(42,23,16,.18)"
+            />
+            <path
+              d="M120 230c0 82 62 128 140 128s140-46 140-128H120z"
+              fill="url(#clay)"
+            />
+            <path
+              d="M104 216h312v14a10 10 0 0 1-10 10H114a10 10 0 0 1-10-10v-14z"
+              fill="#2A1710"
+            />
+            <path
+              d="M76 224c-14 0-14 26 6 26M444 224c14 0 14 26-6 26"
+              fill="none"
+              stroke="#3B1E10"
+              stroke-width="12"
+              stroke-linecap="round"
+            />
+            <!-- soup surface + egusi lumps + ugu leaves + ponmo -->
+            <ellipse cx="260" cy="216" rx="140" ry="24" fill="url(#soup)" />
+            <circle cx="205" cy="212" r="9" fill="#F7CC7E" />
+            <circle cx="248" cy="220" r="11" fill="#F3BE62" />
+            <circle cx="298" cy="211" r="8" fill="#F7CC7E" />
+            <circle cx="330" cy="218" r="10" fill="#F3BE62" />
+            <ellipse
+              cx="228"
+              cy="207"
+              rx="14"
+              ry="5"
+              fill="#2F6D3D"
+              transform="rotate(-14 228 207)"
+            />
+            <ellipse
+              cx="316"
+              cy="224"
+              rx="15"
+              ry="5"
+              fill="#3E7A4C"
+              transform="rotate(10 316 224)"
+            />
+            <ellipse cx="270" cy="206" rx="12" ry="6" fill="#8C3B1E" />
+            <!-- scotch bonnet on the medallion, for garnish -->
+            <path
+              d="M382 318c14-4 24 6 22 18-2 11-14 16-24 12-9-4-11-16-6-24"
+              fill="#C1272D"
+            />
+            <path
+              d="M392 314c1-6 6-8 11-8"
+              fill="none"
+              stroke="#2F6D3D"
+              stroke-width="4"
+              stroke-linecap="round"
+            />
+          </svg>
+
+          <span class="hero__sticker" aria-hidden="true"
+            >UP&nbsp;TO<br /><strong style="font-size: 1.25rem">-20%</strong
+            ><br />TODAY</span
+          >
+          <figcaption class="hero__caption">
+            Egusi Supreme — today's first pot, landed 7:04 AM
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+  SECTION 3 · SERVICES RIBBON  (gives the "Services" menu link a real home)
+  PROMPT USED ( PROMPTS.md P3)
+═════════════════════════════════════════════════════════════════════ -->
+    <section class="services" id="services" aria-label="Our services">
+      <ul>
+        <li>
+          <span class="ico" aria-hidden="true"
+            ><i class="fa-solid fa-motorcycle"></i
+          ></span>
+          <div>
+            <b>45-minute dispatch</b
+            ><span>Hot from pot to your door, Lagos &amp; Enugu</span>
+          </div>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true"
+            ><i class="fa-solid fa-bowl-rice"></i
+          ></span>
+          <div>
+            <b>Party trays &amp; bulk orders</b
+            ><span>Owambe-ready coolers from 20 servings</span>
+          </div>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true"
+            ><i class="fa-solid fa-calendar-days"></i
+          ></span>
+          <div>
+            <b>Weekly meal plans</b
+            ><span>Mon–Fri soup rotation, one payment</span>
+          </div>
+        </li>
+        <li>
+          <span class="ico" aria-hidden="true"
+            ><i class="fa-solid fa-snowflake"></i
+          ></span>
+          <div>
+            <b>Frozen packs nationwide</b
+            ><span>Vacuum-sealed soups waybilled anywhere</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+  SECTION 4 · MAIN — LEFT SIDE PANEL + PRODUCT GRID (4 rows × 4 cards)
+  ──────────────────────────────────────────────────────────────────────
+  PROMPT USED ( in PROMPTS.md P4 + P5)
+  [note] Prices are July-2026 Enugu takeaway estimates for the
+  demo. All 15% / 20% / 10% pairs check out exactly — I did the arithmetic.
+═════════════════════════════════════════════════════════════════════ -->
+    <main class="layout" id="menu">
+      <!-- LEFT SIDE PANEL — connects users to the product cards on the right. -->
+      <aside class="sidebar" aria-label="Menu categories">
+        <h2>Our Menu</h2>
+        <ul class="cat-list">
+          <li>
+            <button
+              class="cat-btn"
+              type="button"
+              data-filter="all"
+              aria-pressed="true"
+            >
+              All dishes <span class="n">16</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="cat-btn"
+              type="button"
+              data-filter="sig-soups"
+              aria-pressed="false"
+            >
+              Signature soups <span class="n">4</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="cat-btn"
+              type="button"
+              data-filter="more-soups"
+              aria-pressed="false"
+            >
+              Soups &amp; delicacies <span class="n">4</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="cat-btn"
+              type="button"
+              data-filter="rice"
+              aria-pressed="false"
+            >
+              Rice &amp; porridge <span class="n">4</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="cat-btn"
+              type="button"
+              data-filter="sides"
+              aria-pressed="false"
+            >
+              Sides &amp; grills <span class="n">4</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="cat-btn"
+              type="button"
+              data-filter="deals"
+              aria-pressed="false"
+            >
+              🔥 Today's deals <span class="n">13</span>
+            </button>
+          </li>
+        </ul>
+        <div class="side-promo">
+          <b>Swallow corner 🫓</b><br />
+          Add eba, semo, fufu or pounded yam to any soup — from ₦800 a wrap.
+          Just tell us for checkout note.
+        </div>
+      </aside>
+
+      <!-- RIGHT: PRODUCT ROWS -->
+      <div class="rows">
+        <!-- ── ROW 1 · SIGNATURE SOUPS ─────────────────────────────────── -->
+        <section
+          class="menu-row"
+          data-row="sig-soups"
+          aria-label="Signature soups"
+        >
+          <header>
+            <h2>Signature Soups</h2>
+            <span class="rule" aria-hidden="true"></span
+            ><span class="count">Pot-fresh daily</span>
+          </header>
+          <div class="grid">
+            <!-- Egusi: the flagship. 15% off → 8,000 × 0.85 = 6,800 ✔ -->
+            <article
+              class="card"
+              data-name="egusi soup melon seed assorted meat"
+              data-cat="sig-soups"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-15%</span>
+                <span class="card__emoji" aria-hidden="true">🍲</span>
+                <img
+                  class="card__img"
+                  src="/img/egusi.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Bowl of egusi soup with ugu leaves and assorted meat"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Egusi Soup</h3>
+                <p class="card__qty">1-litre bowl · serves 3–4</p>
+                <p class="card__price">
+                  <span class="price--now">₦6,800</span>
+                  <s class="price--was">₦8,000</s>
+                </p>
+                <button class="btn--add" type="button" data-dish="Egusi Soup">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Ogbono: draw soup royalty. 20% off → 7,500 × 0.80 = 6,000 ✔ -->
+            <article
+              class="card"
+              data-name="ogbono soup draw wild mango"
+              data-cat="sig-soups"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-20%</span>
+                <span class="card__emoji" aria-hidden="true">🥘</span>
+                <img
+                  class="card__img"
+                  src="/img/ogbono.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Pot of ogbono soup with goat meat and stockfish"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Ogbono Soup</h3>
+                <p class="card__qty">1-litre bowl · serves 3–4</p>
+                <p class="card__price">
+                  <span class="price--now">₦6,000</span>
+                  <s class="price--was">₦7,500</s>
+                </p>
+                <button class="btn--add" type="button" data-dish="Ogbono Soup">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Edikaikong: Calabar vegetable classic. 15% off → 9,000 × 0.85 = 7,650 ✔ -->
+            <article
+              class="card"
+              data-name="edikaikong edikang ikong vegetable soup calabar"
+              data-cat="sig-soups"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-15%</span>
+                <span class="card__emoji" aria-hidden="true">🥬</span>
+                <img
+                  class="card__img"
+                  src="/img/edikaikong.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Edikaikong vegetable soup rich with ugu and waterleaf"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Edikaikong Soup</h3>
+                <p class="card__qty">1-litre bowl · serves 3–4</p>
+                <p class="card__price">
+                  <span class="price--now">₦7,650</span>
+                  <s class="price--was">₦9,000</s>
+                </p>
+                <button
+                  class="btn--add"
+                  type="button"
+                  data-dish="Edikaikong Soup"
+                >
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Okazi: eastern deep-leaf goodness. 10% off → 9,000 × 0.90 = 8,100 ✔ -->
+            <article
+              class="card"
+              data-name="okazi soup afang leaf eastern"
+              data-cat="sig-soups"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-10%</span>
+                <span class="card__emoji" aria-hidden="true">🌿</span>
+                <img
+                  class="card__img"
+                  src="/img/okazi.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Okazi soup thick with shredded okazi leaves and periwinkle"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Okazi Soup</h3>
+                <p class="card__qty">1-litre bowl · serves 3–4</p>
+                <p class="card__price">
+                  <span class="price--now">₦8,100</span>
+                  <s class="price--was">₦9,000</s>
+                </p>
+                <button class="btn--add" type="button" data-dish="Okazi Soup">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ── ROW 2 · MORE SOUPS & DELICACIES ─────────────────────────── -->
+        <section
+          class="menu-row"
+          data-row="more-soups"
+          aria-label="More soups and delicacies"
+        >
+          <header>
+            <h2>Soups &amp; Delicacies</h2>
+            <span class="rule" aria-hidden="true"></span
+            ><span class="count">Chop like royalty</span>
+          </header>
+          <div class="grid">
+            <!-- Ewedu: Yoruba draw greatness. 15% off → 3,000 × 0.85 = 2,550 ✔ -->
+            <article
+              class="card"
+              data-name="ewedu soup jute leaf yoruba"
+              data-cat="more-soups"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-15%</span>
+                <span class="card__emoji" aria-hidden="true">🍃</span>
+                <img
+                  class="card__img"
+                  src="/img/ewedu.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Smooth green ewedu soup in a serving cup"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Ewedu Soup</h3>
+                <p class="card__qty">500 ml cup · serves 2</p>
+                <p class="card__price">
+                  <span class="price--now">₦2,550</span>
+                  <s class="price--was">₦3,000</s>
+                </p>
+                <button class="btn--add" type="button" data-dish="Ewedu Soup">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Ora (Oha): Igbo celebration soup. 20% off → 9,500 × 0.80 = 7,600 ✔ -->
+            <article
+              class="card"
+              data-name="ora oha soup igbo cocoyam"
+              data-cat="more-soups"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-20%</span>
+                <span class="card__emoji" aria-hidden="true">🌱</span>
+                <img
+                  class="card__img"
+                  src="/img/ora-oha.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Ora soup with oha leaves and cocoyam thickener"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Ora (Oha) Soup</h3>
+                <p class="card__qty">1-litre bowl · serves 3–4</p>
+                <p class="card__price">
+                  <span class="price--now">₦7,600</span>
+                  <s class="price--was">₦9,500</s>
+                </p>
+                <button
+                  class="btn--add"
+                  type="button"
+                  data-dish="Ora (Oha) Soup"
+                >
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Okro: fresh-cut draw. 15% off → 7,000 × 0.85 = 5,950 ✔ -->
+            <article
+              class="card"
+              data-name="okro okra soup draw seafood"
+              data-cat="more-soups"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-15%</span>
+                <span class="card__emoji" aria-hidden="true">🥣</span>
+                <img
+                  class="card__img"
+                  src="/img/okro.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Chunky okro soup with prawns and palm oil sheen"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Okro Soup</h3>
+                <p class="card__qty">1-litre bowl · serves 3–4</p>
+                <p class="card__price">
+                  <span class="price--now">₦5,950</span>
+                  <s class="price--was">₦7,000</s>
+                </p>
+                <button class="btn--add" type="button" data-dish="Okro Soup">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Nkwobi: spicy cow-foot in ugba sauce. 10% off → 8,500 × 0.90 = 7,650 ✔ -->
+            <article
+              class="card"
+              data-name="nkwobi cow foot spicy palm oil ugba"
+              data-cat="more-soups"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-10%</span>
+                <span class="card__emoji" aria-hidden="true">🥩</span>
+                <img
+                  class="card__img"
+                  src="/img/nkwobi.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Nkwobi served in a black wooden mortar bowl with utazi garnish"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Nkwobi</h3>
+                <p class="card__qty">Medium wooden bowl · serves 2</p>
+                <p class="card__price">
+                  <span class="price--now">₦7,650</span>
+                  <s class="price--was">₦8,500</s>
+                </p>
+                <button class="btn--add" type="button" data-dish="Nkwobi">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ── ROW 3 · RICE & PORRIDGE ─────────────────────────────────── -->
+        <section
+          class="menu-row"
+          data-row="rice"
+          aria-label="Rice and porridge"
+        >
+          <header>
+            <h2>Rice &amp; Porridge</h2>
+            <span class="rule" aria-hidden="true"></span
+            ><span class="count">Party-level always</span>
+          </header>
+          <div class="grid">
+            <!-- Jollof: smoky party-grade. 20% off → 4,500 × 0.80 = 3,600 ✔ -->
+            <article
+              class="card"
+              data-name="jollof rice smoky party tomato"
+              data-cat="rice"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-20%</span>
+                <span class="card__emoji" aria-hidden="true">🍛</span>
+                <img
+                  class="card__img"
+                  src="/img/jollof.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Plate of smoky party jollof rice with fried plantain garnish"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Jollof Rice</h3>
+                <p class="card__qty">1 full plate · 350 g</p>
+                <p class="card__price">
+                  <span class="price--now">₦3,600</span>
+                  <s class="price--was">₦4,500</s>
+                </p>
+                <button class="btn--add" type="button" data-dish="Jollof Rice">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Fried rice: mixed-veg loaded. 15% off → 4,500 × 0.85 = 3,825 ✔ -->
+            <article
+              class="card"
+              data-name="fried rice mixed vegetables liver"
+              data-cat="rice"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-15%</span>
+                <span class="card__emoji" aria-hidden="true">🍚</span>
+                <img
+                  class="card__img"
+                  src="/img/fried-rice.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Nigerian fried rice with green peas, carrots and liver bits"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Fried Rice</h3>
+                <p class="card__qty">1 full plate · 350 g</p>
+                <p class="card__price">
+                  <span class="price--now">₦3,825</span>
+                  <s class="price--was">₦4,500</s>
+                </p>
+                <button class="btn--add" type="button" data-dish="Fried Rice">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Porridge yam: palm-oil rich. 15% off → 4,000 × 0.85 = 3,400 ✔ -->
+            <article
+              class="card"
+              data-name="porridge yam asaro palm oil pottage"
+              data-cat="rice"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-15%</span>
+                <span class="card__emoji" aria-hidden="true">🍠</span>
+                <img
+                  class="card__img"
+                  src="/img/porridge-yam.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Yam porridge in rich palm oil sauce with greens"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Porridge Yam</h3>
+                <p class="card__qty">1 plate · serves 1–2</p>
+                <p class="card__price">
+                  <span class="price--now">₦3,400</span>
+                  <s class="price--was">₦4,000</s>
+                </p>
+                <button class="btn--add" type="button" data-dish="Porridge Yam">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Porridge beans: Mama's pick — full price, proudly. -->
+            <article
+              class="card"
+              data-name="porridge beans honey beans ewa pottage"
+              data-cat="rice"
+            >
+              <figure class="card__media">
+                <span class="badge badge--pick">CHEF'S PICK</span>
+                <span class="card__emoji" aria-hidden="true">🫘</span>
+                <img
+                  class="card__img"
+                  src="/img/porridge-beans.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Honey beans porridge cooked soft in palm oil"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Porridge Beans</h3>
+                <p class="card__qty">1 plate · serves 1–2</p>
+                <p class="card__price">
+                  <span class="price--now">₦3,500</span>
+                </p>
+                <button
+                  class="btn--add"
+                  type="button"
+                  data-dish="Porridge Beans"
+                >
+                  Add to basket
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ── ROW 4 · SIDES & GRILLS ──────────────────────────────────── -->
+        <section
+          class="menu-row"
+          data-row="sides"
+          aria-label="Sides and grills"
+        >
+          <header>
+            <h2>Sides &amp; Grills</h2>
+            <span class="rule" aria-hidden="true"></span
+            ><span class="count">Small chops, big joy</span>
+          </header>
+          <div class="grid">
+            <!-- Dodo: golden fried plantain. 15% off → 2,000 × 0.85 = 1,700 ✔ -->
+            <article
+              class="card"
+              data-name="fried plantain dodo sweet golden"
+              data-cat="sides"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-15%</span>
+                <span class="card__emoji" aria-hidden="true">🍌</span>
+                <img
+                  class="card__img"
+                  src="/img/plantain.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Golden fried plantain slices stacked on a plate"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Fried Plantain (Dodo)</h3>
+                <p class="card__qty">1 pack · 10 slices</p>
+                <p class="card__price">
+                  <span class="price--now">₦1,700</span>
+                  <s class="price--was">₦2,000</s>
+                </p>
+                <button
+                  class="btn--add"
+                  type="button"
+                  data-dish="Fried Plantain"
+                >
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Abacha: African salad, Enugu-style. 10% off → 3,500 × 0.90 = 3,150 ✔ -->
+            <article
+              class="card"
+              data-name="abacha african salad ugba cassava enugu"
+              data-cat="sides"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-10%</span>
+                <span class="card__emoji" aria-hidden="true">🥗</span>
+                <img
+                  class="card__img"
+                  src="/img/abacha.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Abacha African salad with ugba, garden eggs and fried fish"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Abacha (African Salad)</h3>
+                <p class="card__qty">1 large plate · with ugba &amp; fish</p>
+                <p class="card__price">
+                  <span class="price--now">₦3,150</span>
+                  <s class="price--was">₦3,500</s>
+                </p>
+                <button class="btn--add" type="button" data-dish="Abacha">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Fried chicken: crispy laps. 15% off → 5,000 × 0.85 = 4,250 ✔ -->
+            <article
+              class="card"
+              data-name="fried chicken crispy laps protein"
+              data-cat="sides"
+              data-deal="1"
+            >
+              <figure class="card__media">
+                <span class="badge">-15%</span>
+                <span class="card__emoji" aria-hidden="true">🍗</span>
+                <img
+                  class="card__img"
+                  src="/img/fried-chicken.jpeg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Two crispy fried chicken laps, golden brown"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Fried Chicken</h3>
+                <p class="card__qty">2 laps · crispy fried</p>
+                <p class="card__price">
+                  <span class="price--now">₦4,250</span>
+                  <s class="price--was">₦5,000</s>
+                </p>
+                <button
+                  class="btn--add"
+                  type="button"
+                  data-dish="Fried Chicken"
+                >
+                  Add to basket
+                </button>
+              </div>
+            </article>
+
+            <!-- Kpomo: peppered and proud. New arrival — full price. -->
+            <article
+              class="card"
+              data-name="kpomo ponmo peppered cow skin"
+              data-cat="sides"
+            >
+              <figure class="card__media">
+                <span class="badge badge--new">NEW</span>
+                <span class="card__emoji" aria-hidden="true">🌶️</span>
+                <img
+                  class="card__img"
+                  src="/img/ponmo.jpg"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Peppered kpomo pieces glistening in spicy sauce"
+                  onload="this.parentElement.classList.add('has-photo')"
+                />
+              </figure>
+              <div class="card__body">
+                <h3 class="card__name">Kpomo (Peppered)</h3>
+                <p class="card__qty">6 pieces · extra pepper optional</p>
+                <p class="card__price">
+                  <span class="price--now">₦2,000</span>
+                </p>
+                <button class="btn--add" type="button" data-dish="Kpomo">
+                  Add to basket
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Friendly empty state — shows only when a search finds nothing. -->
+        <div class="no-results is-hidden" id="no-results" role="status">
+          <p style="font-size: 2rem; margin: 0">🍽️</p>
+          <p>
+            <b>Chai! We no find that dish.</b><br />Try "egusi", "jollof" or
+            "nkwobi" — or clear your search below.
+          </p>
+          <button class="btn btn--ghost" type="button" id="reset-search">
+            Show all dishes
+          </button>
+        </div>
+      </div>
+      <!-- /.rows -->
+    </main>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+  SECTION 5 · CUSTOMER SERVICE + CONTACT  (targets for the last two menu
+  links — the sticky footer below stays slim, so details live up here)
+  PROMPT USED ( PROMPTS.md P6)
+═════════════════════════════════════════════════════════════════════ -->
+    <section
+      class="support"
+      id="support"
+      aria-label="Customer service and contact"
+    >
+      <article>
+        <h2>Customer Service</h2>
+        <p>
+          Real humans, every day, 8:00 AM – 9:00 PM. If your soup lands cold, we
+          replace am — no story, no long thing.
+        </p>
+        <p class="fact">
+          <span class="ico" aria-hidden="true"
+            ><i class="fa-solid fa-phone"></i
+          ></span>
+          Hotline:
+          <a href="tel:+2348123456789">+234 812 345 6789</a>
+        </p>
+        <p class="fact">
+          <span class="ico" aria-hidden="true"
+            ><i class="fa-solid fa-message"></i
+          ></span>
+          WhatsApp orders:
+          <a href="https://wa.me/2348123456789">wa.me/2348123456789</a>
+        </p>
+        <p class="fact">
+          <span class="ico" aria-hidden="true"
+            ><i class="fa-solid fa-rotate"></i
+          ></span>
+          Refunds &amp; replacements sorted within 24 hours
+        </p>
+      </article>
+      <article id="contact">
+        <h2>Contact Us</h2>
+        <p class="fact">
+          <span class="ico" aria-hidden="true"
+            ><i class="fa-solid fa-location-dot"></i
+          ></span>
+          Enugu kitchen: 23 Ogui Road, near Holy Ghost
+        </p>
+        <p class="fact">
+          <span class="ico" aria-hidden="true"
+            ><i class="fa-solid fa-envelope"></i
+          ></span>
+          <a href="mailto:hello@mamaputonline.ng">hello@mamaputonline.ng</a>
+        </p>
+        <p class="fact">
+          <span class="ico" aria-hidden="true"
+            ><i class="fa-solid fa-clock"></i
+          ></span>
+          Orders close 8:00 PM — kitchen rests, pots reload
+        </p>
+      </article>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+  SECTION 6 · STICKY FOOTER — all social links, always within reach
+  PROMPT USED (condensed — PROMPTS.md §P7): "Slim sticky footer, deep navy
+  (the brief's 'blue'), position:sticky bottom:0 with a gold ric-rac trim
+  mirroring the header. Left: © line + credit. Right: circular icon links
+  for Instagram, Facebook, X, WhatsApp, TikTok, YouTube (inline SVG, real
+  aria-labels) + a back-to-top link. Keep it under ~64px tall."
+═════════════════════════════════════════════════════════════════════ -->
+    <footer class="site-foot" id="footer">
+      <small
+        >© <span id="year">2026</span> MamaPutOnline · Cooked with ❤️ in Naija ·
+        Vibe-engineered by Cynthia Abah — ENSG AI Class</small
+      >
+      <ul class="socials" aria-label="MamaPutOnline on social media">
+        <li>
+          <a
+            href="https://instagram.com/mamaputonline"
+            aria-label="MamaPutOnline on Instagram"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4.2" />
+              <circle
+                cx="17.4"
+                cy="6.6"
+                r="1.3"
+                fill="currentColor"
+                stroke="none"
+              /></svg
+          ></a>
+        </li>
+        <li>
+          <a
+            href="https://facebook.com/mamaputonline"
+            aria-label="MamaPutOnline on Facebook"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M15 3h3v4h-3c-.6 0-1 .4-1 1v3h4l-.5 4H14v6h-4v-6H7v-4h3V8a5 5 0 0 1 5-5z"
+              /></svg
+          ></a>
+        </li>
+        <li>
+          <a
+            href="https://x.com/mamaputonline"
+            aria-label="MamaPutOnline on X (Twitter)"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 3h4.6l4.2 5.9L17.8 3H21l-6.6 8.1L21.5 21h-4.6l-4.6-6.4L6.6 21H3.4l7-8.6L4 3z"
+              /></svg
+          ></a>
+        </li>
+        <li>
+          <a href="https://wa.me/2348123456789" aria-label="Order via WhatsApp">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.6-1.2A9 9 0 1 0 12 3z" />
+              <path
+                d="M8.8 8.6c-.4 2.6 3.6 6.9 6.4 6.6l.9-1.6-2.2-1.2-1 .8c-1-.5-1.9-1.4-2.4-2.4l.9-1-1.1-2.2-1.5 1z"
+                fill="currentColor"
+                stroke="none"
+              /></svg
+          ></a>
+        </li>
+        <li>
+          <a
+            href="https://tiktok.com/@mamaputonline"
+            aria-label="MamaPutOnline on TikTok"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M14 3h3.1c.3 2.3 1.7 3.8 3.9 4.1v3.1c-1.5 0-2.9-.5-3.9-1.3v6.2a6 6 0 1 1-6-6c.3 0 .6 0 .9.1v3.3a2.8 2.8 0 1 0 2 2.7V3z"
+              /></svg
+          ></a>
+        </li>
+        <li>
+          <a
+            href="https://youtube.com/@mamaputonline"
+            aria-label="MamaPutOnline on YouTube"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <rect x="2.5" y="6" width="19" height="12" rx="3.5" />
+              <path d="M10.4 9.4v5.2l4.8-2.6z" fill="#12203F" /></svg
+          ></a>
+        </li>
+      </ul>
+      <a class="to-top" href="#top">Back to top ↑</a>
+    </footer>
+
+    <!-- Toast lives outside the footer so it can float above it. -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+  SECTION 7 · INTERACTIVITY (vanilla JS, no dependencies)
+  PROMPT USED ( PROMPTS.md P8)
+═════════════════════════════════════════════════════════════════════ -->
+    <script src="main.js" defer></script>
+  </body>
+</html>
